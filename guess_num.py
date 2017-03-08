@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# coding=utf-8
+ 
 """
 guess_num.py
 L33T G4M3 M8.
@@ -18,8 +21,21 @@ LANGUAGES = {
         "replay_prompt":"Would you like to play again? (y/n): ",
         "gratitude_message":"Thanks for playing!",
         "wrong_key_prompt":"Input (y/n) please: "
+    },
+    "fr_FR":{
+        "guess_prompt_with_lives":"Devinez le nombre entre {lower_bound} et {upper_bound}. Vous avez {guesses} devinez: ",
+        "guess_response_success":"Vous avez deviné juste! Vous avez utilisé {} conjectures!",
+        "game_fail":"Tu as échoué. Vous avez utilisé toutes vos {guesses} conjectures. Le nombre était {number}.",
+        "hint":" Nombre est {}.",
+        "lower":"inférieur",
+        "higher":"plus élevé",
+        "guess_response_fail":"Faux.{hint} Vous avez {guesses} crédits à gauche. Réessayer: ",
+        "replay_prompt":"Voulez-vous jouer de nouveau? (y/n): ",
+        "gratitude_message":"Merci d'avoir joué!",
+        "wrong_key_prompt":"Entrée (y/n) s'il vous plaît: "  
     }
 }
+
 
 def play_round(difficult=False, lives=5, lower_bound=0, upper_bound=20):
     """
