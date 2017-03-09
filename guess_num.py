@@ -41,6 +41,9 @@ LANGUAGES = {
 
 
 def check_guess(message, lower_bound, upper_bound):
+    """
+    Checks whether the guess input by the user lies within the bounds of possible correct answers and asks for a new guess if this is not the case. 
+    """
     guess = int(input(message))
     
     while guess < lower_bound or guess > upper_bound:
@@ -76,6 +79,9 @@ def play_round(difficult=False, lives=5, lower_bound=0, upper_bound=20):
 
 
 def input_character(prompt):
+    """
+    Allows support for Python versions 2 and 3.
+    """
     if python_version == 3:
         return str(input(prompt))
     elif python_version == 2:
@@ -113,6 +119,9 @@ def play_game(difficult=False, lives=5, lower_bound=0, upper_bound=20):
 
 
 def main():
+    """
+    Parses arguments from command line to play_game function.
+    """
     global L
     global python_version
 
