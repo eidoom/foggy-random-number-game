@@ -8,6 +8,7 @@ L33T G4M3 M8.
 
 from argparse import ArgumentParser
 from random import randint 
+from sys import version_info
 
 LANGUAGES = {
     "en_GB": {
@@ -74,11 +75,20 @@ def play_round(difficult=False, lives=5, lower_bound=0, upper_bound=20):
         guess = check_guess(L["guess_response_fail"].format(hint=hint, guesses=lives), lower_bound, upper_bound)
 
 
+def input_character(prompt):
+    if python_version == 3:
+        return str(input(prompt))
+    elif python_version == 2:
+        return raw_input(prompt)
+    else:
+        exit("Only supports Python versions 2 and 3.")
+
+
 def prompt_yn(prompt):
     """
     Allow user to input whether they want to continue playing. 
     """
-    char_yn = raw_input(prompt)
+    char_yn = input_character(prompt)
     
     while True:
         if char_yn == 'n':
@@ -87,7 +97,7 @@ def prompt_yn(prompt):
             print("")
             return True
         else:
-            char_yn = raw_input(L["wrong_key_prompt"])
+            char_yn = input_character(L["wrong_key_prompt"])
 
 
 def play_game(difficult=False, lives=5, lower_bound=0, upper_bound=20):
@@ -104,6 +114,9 @@ def play_game(difficult=False, lives=5, lower_bound=0, upper_bound=20):
 
 def main():
     global L
+    global python_version
+
+    python_version = version_info.major
 
     parser = ArgumentParser()
 
