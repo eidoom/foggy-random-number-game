@@ -12,27 +12,31 @@ from sys import version_info
 
 LANGUAGES = {
     "en_GB": {
-        "guess_prompt_with_lives": "Guess the number between {lower_bound} and {upper_bound}. You have {guesses} guesses left: ",
+        "guess_singular":"guess",
+        "guess_plural":"guesses",
+        "guess_prompt_with_lives": "Guess the number between {lower_bound} and {upper_bound}. You have {guesses} {guess_word} left: ",
         "guess_outwith_bounds": "Your guess was not within possible bounds. Enter a sensible guess: ",
-        "guess_response_success": "You guessed right! You used {} guesses!",
-        "game_fail": "You have failed. You have used all of your {guesses} guesses. The number was {number}.",
+        "guess_response_success": "You guessed right! You used {guesses} {guess_word}!",
+        "game_fail": "You have failed. You have used all of your {guesses} {guess_word}. The number was {number}.",
         "hint": " Number is {}.",
         "lower": "lower",
         "higher": "higher",
-        "guess_response_fail": "Wrong.{hint} You have {guesses} guesses left. Try again: ",
+        "guess_response_fail": "Wrong.{hint} You have {guesses} {guess_word} left. Try again: ",
         "replay_prompt": "Would you like to play again? (y/n): ",
         "gratitude_message": "Thanks for playing!",
         "wrong_key_prompt": "Input (y/n) please: "
     },
     "fr_FR": {
-        "guess_prompt_with_lives": "Devinez le nombre entre {lower_bound} et {upper_bound}. Vous avez {guesses} devinez: ",
+        "guess_singular":"conjecture",
+        "guess_plural":"conjectures",
+        "guess_prompt_with_lives": "Devinez le nombre entre {lower_bound} et {upper_bound}. Vous avez {guesses} {guess_word}: ",
         "guess_outwith_bounds": "Votre conjecture était dans des limites possibles. Entrez une estimation sensible: ",
-        "guess_response_success": "Vous avez deviné juste! Vous avez utilisé {} conjectures!",
-        "game_fail": "Tu as échoué. Vous avez utilisé toutes vos {guesses} conjectures. Le nombre était {number}.",
+        "guess_response_success": "Vous avez deviné juste! Vous avez utilisé {guesses} {guess_word}!",
+        "game_fail": "Tu as échoué. Vous avez utilisé toutes vos {guesses} {guess_word}. Le nombre était {number}.",
         "hint": " Nombre est {}.",
         "lower": "inférieur",
         "higher": "plus élevé",
-        "guess_response_fail": "Faux.{hint} Vous avez {guesses} crédits à gauche. Réessayer: ",
+        "guess_response_fail": "Faux.{hint} Vous avez {guesses} {guess_word} restantes. Réessayer: ",
         "replay_prompt": "Voulez-vous jouer de nouveau? (y/n): ",
         "gratitude_message": "Merci d'avoir joué!",
         "wrong_key_prompt": "Entrée (y/n) s'il vous plaît: "
@@ -52,6 +56,13 @@ def check_guess(message, lower_bound, upper_bound):
     return guess
 
 
+def guess_word(lives):
+    """
+    Returns the correct form of the word 'guess'. 
+    """
+    return L["guess_singular"] if lives == 1 else L["guess_plural"]
+
+
 def play_round(difficult=False, lives=5, lower_bound=0, upper_bound=20):
     """
     Play a single round of the number guessing game.
@@ -59,23 +70,23 @@ def play_round(difficult=False, lives=5, lower_bound=0, upper_bound=20):
     total_lives = lives
     random_number = randint(lower_bound, upper_bound)
 
-    guess = check_guess(L["guess_prompt_with_lives"].format(lower_bound=lower_bound, upper_bound=upper_bound, guesses=lives), lower_bound, upper_bound)
+    guess = check_guess(L["guess_prompt_with_lives"].format(lower_bound=lower_bound, upper_bound=upper_bound, guesses=lives, guess_word=guess_word(lives)), lower_bound, upper_bound)
 
     while True:
         if guess == random_number:
-            print(L["guess_response_success"].format(total_lives + 1 - lives))
+            print(L["guess_response_success"].format(guesses=total_lives + 1 - lives, guess_word=guess_word(lives)))
             break
     
         lives -= 1
 
         if not lives:
-            print(L["game_fail"].format(guesses=total_lives, number=random_number))
+            print(L["game_fail"].format(guesses=total_lives, number=random_number, guess_word=guess_word(lives)))
             break
         
         hint = "" if difficult else L["hint"].format(
             L["lower"] if guess > random_number else L["higher"])
 
-        guess = check_guess(L["guess_response_fail"].format(hint=hint, guesses=lives), lower_bound, upper_bound)
+        guess = check_guess(L["guess_response_fail"].format(hint=hint, guesses=lives, guess_word=guess_word(lives)), lower_bound, upper_bound)
 
 
 def input_character(prompt):
