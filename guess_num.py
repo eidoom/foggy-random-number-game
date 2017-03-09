@@ -10,31 +10,31 @@ from argparse import ArgumentParser
 from random import randint 
 
 LANGUAGES = {
-    "en_GB":{
-        "guess_prompt_with_lives":"Guess the number between {lower_bound} and {upper_bound}. You have {guesses} guesses left: ",
-        "guess_outwith_bounds":"Your guess was not within possible bounds. Enter a sensible guess: ",
-        "guess_response_success":"You guessed right! You used {} guesses!",
-        "game_fail":"You have failed. You have used all of your {guesses} guesses. The number was {number}.",
-        "hint":" Number is {}.",
-        "lower":"lower",
-        "higher":"higher",
-        "guess_response_fail":"Wrong.{hint} You have {guesses} guesses left. Try again: ",
-        "replay_prompt":"Would you like to play again? (y/n): ",
-        "gratitude_message":"Thanks for playing!",
-        "wrong_key_prompt":"Input (y/n) please: "
+    "en_GB": {
+        "guess_prompt_with_lives": "Guess the number between {lower_bound} and {upper_bound}. You have {guesses} guesses left: ",
+        "guess_outwith_bounds": "Your guess was not within possible bounds. Enter a sensible guess: ",
+        "guess_response_success": "You guessed right! You used {} guesses!",
+        "game_fail": "You have failed. You have used all of your {guesses} guesses. The number was {number}.",
+        "hint": " Number is {}.",
+        "lower": "lower",
+        "higher": "higher",
+        "guess_response_fail": "Wrong.{hint} You have {guesses} guesses left. Try again: ",
+        "replay_prompt": "Would you like to play again? (y/n): ",
+        "gratitude_message": "Thanks for playing!",
+        "wrong_key_prompt": "Input (y/n) please: "
     },
-    "fr_FR":{
-        "guess_prompt_with_lives":"Devinez le nombre entre {lower_bound} et {upper_bound}. Vous avez {guesses} devinez: ",
-        "guess_outwith_bounds":"Votre conjecture était dans des limites possibles. Entrez une estimation sensible: ",
-        "guess_response_success":"Vous avez deviné juste! Vous avez utilisé {} conjectures!",
-        "game_fail":"Tu as échoué. Vous avez utilisé toutes vos {guesses} conjectures. Le nombre était {number}.",
-        "hint":" Nombre est {}.",
-        "lower":"inférieur",
-        "higher":"plus élevé",
-        "guess_response_fail":"Faux.{hint} Vous avez {guesses} crédits à gauche. Réessayer: ",
-        "replay_prompt":"Voulez-vous jouer de nouveau? (y/n): ",
-        "gratitude_message":"Merci d'avoir joué!",
-        "wrong_key_prompt":"Entrée (y/n) s'il vous plaît: "  
+    "fr_FR": {
+        "guess_prompt_with_lives": "Devinez le nombre entre {lower_bound} et {upper_bound}. Vous avez {guesses} devinez: ",
+        "guess_outwith_bounds": "Votre conjecture était dans des limites possibles. Entrez une estimation sensible: ",
+        "guess_response_success": "Vous avez deviné juste! Vous avez utilisé {} conjectures!",
+        "game_fail": "Tu as échoué. Vous avez utilisé toutes vos {guesses} conjectures. Le nombre était {number}.",
+        "hint": " Nombre est {}.",
+        "lower": "inférieur",
+        "higher": "plus élevé",
+        "guess_response_fail": "Faux.{hint} Vous avez {guesses} crédits à gauche. Réessayer: ",
+        "replay_prompt": "Voulez-vous jouer de nouveau? (y/n): ",
+        "gratitude_message": "Merci d'avoir joué!",
+        "wrong_key_prompt": "Entrée (y/n) s'il vous plaît: "
     }
 }
 
@@ -114,7 +114,7 @@ def main():
     parser.add_argument("-lb", "--upper-bound", 
         help="Set the upper bound of the random integer number generator.", type=int, default=20)
     parser.add_argument("-ub", "--lower-bound", 
-        help="Set the lower bound of the random integer number generator.",type=int, default=0)
+        help="Set the lower bound of the random integer number generator.", type=int, default=0)
     parser.add_argument("-i", "--language", help="Set the program language.", type=str, 
         default="en_GB")
 
