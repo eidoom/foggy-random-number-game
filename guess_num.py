@@ -12,6 +12,7 @@ from random import randint
 LANGUAGES = {
     "en_GB":{
         "guess_prompt_with_lives":"Guess the number between {lower_bound} and {upper_bound}. You have {guesses} guesses left: ",
+        "guess_outwith_bounds":"Your guess was not within possible bounds. Enter a sensible guess: ",
         "guess_response_success":"You guessed right! You used {} guesses!",
         "game_fail":"You have failed. You have used all of your {guesses} guesses. The number was {number}.",
         "hint":" Number is {}.",
@@ -24,6 +25,7 @@ LANGUAGES = {
     },
     "fr_FR":{
         "guess_prompt_with_lives":"Devinez le nombre entre {lower_bound} et {upper_bound}. Vous avez {guesses} devinez: ",
+        "guess_outwith_bounds":"Votre conjecture était dans des limites possibles. Entrez une estimation sensible: ",
         "guess_response_success":"Vous avez deviné juste! Vous avez utilisé {} conjectures!",
         "game_fail":"Tu as échoué. Vous avez utilisé toutes vos {guesses} conjectures. Le nombre était {number}.",
         "hint":" Nombre est {}.",
@@ -37,30 +39,39 @@ LANGUAGES = {
 }
 
 
+def check_guess(message, lower_bound, upper_bound):
+    guess = int(input(message))
+    
+    while guess < lower_bound or guess > upper_bound:
+        guess = int(input(L["guess_outwith_bounds"]))
+    
+    return guess
+
+
 def play_round(difficult=False, lives=5, lower_bound=0, upper_bound=20):
     """
     Play a single round of the number guessing game.
     """
     total_lives = lives
-    rand_num = randint(lower_bound, upper_bound)
-    guess = int(input(L["guess_prompt_with_lives"].format(
-        lower_bound=lower_bound, upper_bound=upper_bound, guesses=lives)))
-    
+    random_number = randint(lower_bound, upper_bound)
+
+    guess = check_guess(L["guess_prompt_with_lives"].format(lower_bound=lower_bound, upper_bound=upper_bound, guesses=lives), lower_bound, upper_bound)
+
     while True:
-        if guess == rand_num:
+        if guess == random_number:
             print(L["guess_response_success"].format(total_lives + 1 - lives))
             break
     
         lives -= 1
 
         if not lives:
-            print(L["game_fail"].format(guesses=total_lives, number=rand_num))
+            print(L["game_fail"].format(guesses=total_lives, number=random_number))
             break
         
         hint = "" if difficult else L["hint"].format(
-            L["lower"] if guess > rand_num else L["higher"])
+            L["lower"] if guess > random_number else L["higher"])
 
-        guess = int(input(L["guess_response_fail"].format(hint=hint, guesses=lives)))
+        guess = check_guess(L["guess_response_fail"].format(hint=hint, guesses=lives), lower_bound, upper_bound)
 
 
 def prompt_yn(prompt):
